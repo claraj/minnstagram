@@ -1,0 +1,39 @@
+<!-- A list of pictures -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <h1>Minnstagram</h1>
+
+    {% for post in posts %}
+
+        <a href="post/{{ post['id']}}">
+
+            <h2>{{ post['user'] }}</h2>
+            <img src="/static/images/{{ post['url']}}">
+            <p>{{ post['text'] }}</p>
+
+            {% if post['likes'] == 1 %}
+                <p>1 like</p>
+            {% else %}
+                <p>{{ post['likes']}} likes</p>
+            {% endif %}
+
+        </a>
+
+        <hr> 
+
+    {% endfor %}
+
+    
+</body>
+</html>

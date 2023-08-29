@@ -1,0 +1,59 @@
+<!-- A page showing one single post. A user can add comments to that picture. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+
+    <h1><a href="/">Minnstagram</a></h1>
+
+    <h2>{{ post['user'] }}</h2>
+    <img src="../static/images/{{ post['url']}}">
+    <p>{{ post['text'] }}</p>
+
+    <h3>Comments</h3>
+
+    {% if comments %}
+
+        {% for comment in comments %}
+            <p>{{ comment }}</p>
+        {% endfor %}
+
+    {% else %} 
+    
+        <p>Be the first to comment!</p>
+    
+    {% endif %}
+
+    <form action="/add_comment/{{ post['id']}}" method="POST">
+        <input id="new_comment_text" name="comment_text">
+        <button id="add_comment_button">Add comment</button>
+    </form>
+
+    
+
+    <script>
+        const newCommentText = document.getElementById('new_comment_text')
+        const addCommentButton = document.getElementById('add_comment_button')
+
+        addCommentButton.disabled = true 
+
+        newCommentText.addEventListener('input', function() {
+            if (newCommentText.value.length == 0) {
+                addCommentButton.disabled = true
+            } else {
+                addCommentButton.disabled = false
+            }
+        })
+    </script>
+
+</body>
+</html>
